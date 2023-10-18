@@ -52,12 +52,7 @@ function theming(){
                             @click="setActiveLink('/contact')">
                             <span class="nav-link-span"><span class="u-nav">Contact</span></span>
                         </RouterLink>
-                    </li>
-                    <li>
-                        <RouterLink to="/admin" class="nav-link">
-                            <span class="nav-link-span"><span class="u-nav">Admin</span></span>
-                        </RouterLink>
-                    </li>
+                    </li> 
                     <li>
                         <RouterLink to="/login" class="nav-link">
                             <span class="nav-link-span"><span class="u-nav">Login</span></span>
@@ -72,6 +67,11 @@ function theming(){
                             <li><a  href="#">Another action</a></li> 
                             <li><a  href="#">Something else here</a></li>
                         </ul>
+                    </li>
+                    <li>
+                        <RouterLink to="/admin" class="nav-link">
+                            <span class="nav-link-span"><span class="u-nav">Admin</span></span>
+                        </RouterLink>
                     </li>
                 </ul>
                 <form class="d-flex" role="search">

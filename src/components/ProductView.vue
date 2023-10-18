@@ -1,5 +1,5 @@
 <script setup>
-
+document.title= 'Product view Page'
 import axios from 'axios';
 import { ref, reactive, onBeforeMount } from 'vue'
 import {useRoute} from 'vue-router'
@@ -16,7 +16,7 @@ onBeforeMount( async () => {
 })
 
 
-const activeLink = ref('')
+const activeLink = ref('specification')
 const setActiveLink = (link) => {
     activeLink.value = link // Update the active link when a RouterLink is clicked
 }

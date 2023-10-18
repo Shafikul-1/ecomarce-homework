@@ -1,4 +1,5 @@
 <script setup>
+document.title='Produdct LIst page'
 import{ ref, reactive, onBeforeMount } from 'vue'
 import axios from 'axios';
 import { ContentLoader } from "vue-content-loader"
@@ -247,6 +248,7 @@ onBeforeMount(async () => {
         </div>
       </div>
       <!-- sidebar End -->
+
       <!-- Select And View Button Start -->
       <div class="col-lg-9">
         <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
@@ -373,7 +375,8 @@ onBeforeMount(async () => {
                     </div>
                     <h6 class="text-success">Free shipping</h6>
                     <div class="mt-4">
-                      <RouterLink :to="{name: 'product', params: {id: product.id} }" class="btn btn-primary shadow-0" >Visit Product</RouterLink>
+                      <router-link :to="{ name: 'specification', params: { id: product.id } }" class="btn btn-primary shadow">Visit Product</router-link>
+
                       <button type="button" class="btn btn-light border px-2 pt-2 icon-hover ms-2"><i class="fas fa-heart fa-lg px-1"></i></button>
                     </div>
                   </div>

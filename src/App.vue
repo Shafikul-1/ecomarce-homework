@@ -1,14 +1,20 @@
 <script setup>
 import {  RouterView } from 'vue-router'
 import NavigationView from './views/NavigationView.vue';
+
+
 </script>
 
 <template>
-  <header>
-      <NavigationView/>
+  <div >
+    <header>
+          <NavigationView/>
   </header>
 
   <RouterView />
+  </div>
+
+
 </template>
 
 <style scoped>

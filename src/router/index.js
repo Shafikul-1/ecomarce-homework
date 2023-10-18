@@ -62,8 +62,13 @@ const router = createRouter({
     {
       path: '/login',
       component: ()=> import ('../views/Admin/Login.vue')
-    }
+    },
+    {
+      path: '/registation',
+      component: ()=> import('../views/Admin/Registation.vue')
+    },
   ]
 })
+
 
 export default router
