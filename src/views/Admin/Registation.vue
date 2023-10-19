@@ -1,7 +1,14 @@
 <script setup>
-//import { ref, reactive } from 'vue'
+import { ref, reactive } from 'vue'
 //import  from '.'
-
+import { authenticate } from '../../store/UserAuth'
+const registation = reactive({
+    name: '',
+    email: '',
+    pass: '',
+    confrimPass: ''
+})
+ 
 </script>
 
 <template>
@@ -12,24 +19,24 @@
                     <h2>Registration</h2>
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form @submit.prevent="authenticate.userSignUp(registation)">
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" placeholder="Enter your username"
+                            <input v-model="registation.name" type="text" class="form-control" id="username" placeholder="Enter your username"
                                 required>
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                            <input v-model="registation.email" type="email" class="form-control" id="email" placeholder="Enter your email" required>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Enter your password"
+                            <input v-model="registation.pass" type="password" class="form-control" id="password" placeholder="Enter your password"
                                 required>
                         </div>
                         <div class="mb-3">
                             <label for="confirmPassword" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" id="confirmPassword"
+                            <input v-model="registation.confrimPass" type="password" class="form-control" id="confirmPassword"
                                 placeholder="Confirm your password" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Register</button>

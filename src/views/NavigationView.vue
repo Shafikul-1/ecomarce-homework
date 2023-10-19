@@ -1,7 +1,6 @@
 <script setup>
-//import { ref, reactive } from 'vue'
-//import  from '.'
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
+import { authenticate } from '../store/UserAuth'
 const activeLink = ref('/') // Initialize the active link
 const setActiveLink = (link) => {
     activeLink.value = link // Update the active link when a RouterLink is clicked
@@ -53,7 +52,7 @@ function theming(){
                             <span class="nav-link-span"><span class="u-nav">Contact</span></span>
                         </RouterLink>
                     </li> 
-                    <li>
+                    <li v-if="!authenticate.isAuth">
                         <RouterLink to="/login" class="nav-link">
                             <span class="nav-link-span"><span class="u-nav">Login</span></span>
                         </RouterLink>
@@ -68,7 +67,7 @@ function theming(){
                             <li><a  href="#">Something else here</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li v-if="authenticate.isAuth">
                         <RouterLink to="/admin" class="nav-link">
                             <span class="nav-link-span"><span class="u-nav">Admin</span></span>
                         </RouterLink>
@@ -79,6 +78,19 @@ function theming(){
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
                 <button @click="theming" class="ms-2"><i class="fa-solid fa-circle-half-stroke"></i></button>
+                <ul  v-if="authenticate.isAuth" class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown profile">
+                        <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Profile
+                        </a>
+                        <ul class="dropdown-menu ">
+                            <li><RouterLink class="dropdown-item" to="/profile">Profile</RouterLink>  </li>
+                            <li><RouterLink class="dropdown-item" to="/check-out">CheckOut</RouterLink>  </li>
+                            <li><RouterLink class="dropdown-item" to="/whichlist">Which List</RouterLink>  </li>
+                            <li><button class="dropdown-item" @click="authenticate.logoutUser()">Logout</button>  </li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
@@ -103,5 +115,9 @@ function theming(){
 }
 .hover-menu li a:hover{
     text-decoration: underline;
+}
+
+.profile{
+    margin: 0px 0 0px 28px;
 }
 </style>

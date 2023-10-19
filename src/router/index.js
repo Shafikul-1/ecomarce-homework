@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import { authenticate } from '../store/UserAuth'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -57,7 +58,11 @@ const router = createRouter({
     },
     {
       path: '/admin',
-      component: ()=>import('../views/Admin/AdminHome.vue')
+      name: 'admin',
+      component: ()=>import('../views/Admin/AdminHome.vue'),
+      meta: {
+        auth: true
+      }
     },
     {
       path: '/login',
@@ -67,8 +72,29 @@ const router = createRouter({
       path: '/registation',
       component: ()=> import('../views/Admin/Registation.vue')
     },
+    {
+      path: '/profile',
+      component: ()=> import( '../views/Users/Profile.vue')
+    },
+    {
+      path: '/check-out',
+      component: ()=> import( '../views/Users/CheckOut.vue')
+    },
+    {
+      path: '/whichlist',
+      component: ()=> import( '../views/Users/𝐖𝐡𝐢𝐜𝐡𝐥𝐢𝐬𝐭.vue')
+    },
+    
   ]
 })
 
+router.beforeEach((to, from, next) => {
+  // to and from are both route objects. must call `next`.
+  if (to.meta.auth == true && !authenticate.isAuth ) {
+    next('/login')
+  } else {
+    next()
+  }
+})
 
 export default router
