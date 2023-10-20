@@ -3,7 +3,7 @@ document.title='Produdct LIst page'
 import{ ref, reactive, onBeforeMount } from 'vue'
 import axios from 'axios';
 import { ContentLoader } from "vue-content-loader"
-
+import { cart } from '../store/Cart';
 
 const productsList = ref({})
 const loading = ref(true)
@@ -17,16 +17,12 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  
-    <div class="menuGap">
-        <h1 class="text-center">Product List Page</h1>
-    </div>
 <!-- sidebar + content Start -->
-<section class="">
+<section class="menuGap">
   <div class="container">
     <div class="row">
       <!-- sidebar Start -->
-      <div class="col-lg-3">
+      <div class="col-md-3 position-relative">
         <!-- Toggle button -->
         <button
                 class="btn btn-outline-secondary mb-3 w-100 d-lg-none"
@@ -40,8 +36,8 @@ onBeforeMount(async () => {
           <span>Show filter</span>
         </button>
         <!-- Collapsible wrapper -->
-        <div class="collapse card d-lg-block mb-5" id="navbarSupportedContent">
-          <div class="accordion" id="accordionPanelsStayOpenExample">
+        <div class="collapse card d-lg-block mb-5 sidebarFixed" id="navbarSupportedContent">
+          <div class="accordion " id="accordionPanelsStayOpenExample">
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingOne">
                 <button
@@ -250,8 +246,8 @@ onBeforeMount(async () => {
       <!-- sidebar End -->
 
       <!-- Select And View Button Start -->
-      <div class="col-lg-9">
-        <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
+      <div class="col-md-9 ">
+        <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3 ">
           <strong class="d-block py-2">Total Items: {{ productsList.total }} pcs</strong>
           <div class="ms-auto">
             <select class="form-select d-inline-block w-auto border pt-1 ">
@@ -262,7 +258,7 @@ onBeforeMount(async () => {
             </select>
             <div class="btn-group shadow-0 border ms-3">
               <a href="#" class="btn btn-light" title="List view">
-                <i class="fa fa-bars fa-lg"></i>
+                <i  class="fa fa-bars fa-lg"></i>
               </a>
               <a href="#" class="btn btn-light active" title="Grid view">
                 <i class="fa fa-th fa-lg"></i>
@@ -425,5 +421,11 @@ onBeforeMount(async () => {
 .menuGap{
     margin-top: 5rem;
     margin-bottom: 2rem;
+}
+.sidebarFixed{
+    height: 85vh;
+    position: fixed;
+    overflow-y: auto;
+    width: 22%;
 }
 </style>

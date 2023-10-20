@@ -1,6 +1,6 @@
 import { ref, reactive } from 'vue'
 import router from '../router/index'
-
+import { cart } from './Cart';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 const authenticate = reactive({
@@ -19,7 +19,7 @@ const authenticate = reactive({
         console.log( userInfo)
         console.log(loginInfo)
 
-        if ( userInfo === 'undefined' || userInfo === null || userInfo === '') {
+        if ( userInfo === undefined || userInfo === null || userInfo === '' || userInfo === '{}') {
             toast.error('Please Register Your account')
         } else {
             if ( loginInfo === 'undefined' || loginInfo === null || loginInfo === '') {
@@ -44,9 +44,15 @@ const authenticate = reactive({
     },
 
     logoutUser(){
-        this.isAuth = false
+        this.isAuth = 0
         localStorage.setItem('checkUser' , 0)
-        localStorage.setItem('login', undefined);
+        localStorage.setItem('login', '{}');
+        localStorage.setItem('signUp', '{}');
+
+        //Cart js
+        cart.cartProduct = {}
+        localStorage.setItem('userProductSave', '{}');
+        cart.totalProduct = 0
     }
 })
 

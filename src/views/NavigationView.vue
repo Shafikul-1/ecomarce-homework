@@ -1,15 +1,15 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { authenticate } from '../store/UserAuth'
+import { cart } from '../store/Cart';
+import { theming } from '../store/theme'
 const activeLink = ref('/') // Initialize the active link
 const setActiveLink = (link) => {
     activeLink.value = link // Update the active link when a RouterLink is clicked
     localStorage.setItem('activeLink', link)
 }
 
-function theming(){
 
-}
 </script>
 
 <template>
@@ -41,7 +41,7 @@ function theming(){
                         </RouterLink>
                     </li>
                     <li>
-                        <RouterLink to="/cetagory" class="nav-link" :class="{ 'active': activeLink === '/work' }"
+                        <RouterLink to="/cetagory" class="nav-link" :class="{ 'active': activeLink === '/cetagory' }"
                             @click="setActiveLink('/cetagroy')">
                             <span class="nav-link-span"><span class="u-nav">Cetagroy</span></span>
                         </RouterLink>
@@ -53,19 +53,10 @@ function theming(){
                         </RouterLink>
                     </li> 
                     <li v-if="!authenticate.isAuth">
-                        <RouterLink to="/login" class="nav-link">
+                        <RouterLink to="/login" class="nav-link" :class="{ 'active': activeLink === '/login' }"
+                            @click="setActiveLink('/login')">
                             <span class="nav-link-span"><span class="u-nav">Login</span></span>
                         </RouterLink>
-                    </li>
-                    <li class="nav-item ">
-                        <button class="nav-link hover-toggle" >
-                            Dropdown <i class="fa-solid fa-angle-down"></i>
-                        </button>
-                        <ul class="hover-menu ">
-                            <li><a  href="#">Action</a></li>
-                            <li><a  href="#">Another action</a></li> 
-                            <li><a  href="#">Something else here</a></li>
-                        </ul>
                     </li>
                     <li v-if="authenticate.isAuth">
                         <RouterLink to="/admin" class="nav-link">
@@ -77,7 +68,7 @@ function theming(){
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
-                <button @click="theming" class="ms-2"><i class="fa-solid fa-circle-half-stroke"></i></button>
+                
                 <ul  v-if="authenticate.isAuth" class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item dropdown profile">
                         <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -90,7 +81,14 @@ function theming(){
                             <li><button class="dropdown-item" @click="authenticate.logoutUser()">Logout</button>  </li>
                         </ul>
                     </li>
+                    <li>
+                        <RouterLink to="/cart" class=" position-relative nav-link" :class="{ 'active': activeLink === '/cart' }"
+                            @click="setActiveLink('/cart')">
+                            Cart <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">{{ cart.totalItems >= 20 ? '19+' : cart.totalItems }} <span class="visually-hidden">unread messages</span></span>
+                        </RouterLink>
+                    </li>
                 </ul>
+                <button class="ms-2"><i class="fa-solid fa-circle-half-stroke"></i></button>
             </div>
         </div>
     </nav>

@@ -1,13 +1,11 @@
 import { reactive, ref } from 'vue'
 
 const theming = reactive({
-    defultTheme: '',
+    defultTheme: true,
     dark(){
-         this.defultTheme.setAttribute("data-bs-theme", "dark");
+         this.defultTheme = ''
     },
-    light(){
-        this.defultTheme.setAttribute("data-bs-theme", "light"); 
-    }
+   
 })
 
 export {theming}

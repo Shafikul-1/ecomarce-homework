@@ -3,7 +3,7 @@ document.title= 'Product view Page'
 import axios from 'axios';
 import { ref, reactive, onBeforeMount } from 'vue'
 import {useRoute} from 'vue-router'
-
+import { cart } from '../store/Cart'
 const route = useRoute()
 
 const productDetails = ref('')
@@ -15,7 +15,8 @@ onBeforeMount( async () => {
   loading.value = false
 })
 
-
+const qty = JSON.parse(localStorage.getItem('userProductSave'))
+console.log(qty);
 const activeLink = ref('specification')
 const setActiveLink = (link) => {
     activeLink.value = link // Update the active link when a RouterLink is clicked
@@ -24,14 +25,13 @@ const setActiveLink = (link) => {
 
 <template>
   <div class="menuGap"></div>
-<!-- {{ console.log(productDetails) }} -->
-<!-- content -->
+  
 <section class="py-5">
   <div class="container">
     <div class="row gx-5">
       <a side class="col-lg-6">
         <div class="border rounded-4 mb-3 d-flex justify-content-center">
-          <a  class="rounded-4" target="_blank" data-type="image" href="#">
+          <a  class="rounded-4" data-type="image" href="#">
             <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" :src="productDetails.thumbnail" />
           </a>
         </div>
@@ -102,19 +102,19 @@ const setActiveLink = (link) => {
             <div class="col-md-4 col-6 mb-3">
               <label class="mb-2 d-block">Quantity</label>
               <div class="input-group mb-3" style="width: 170px;">
-                <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon1" data-mdb-ripple-color="dark">
+                <button @click="cart.qtyRemove(productDetails)" class="btn btn-white border border-secondary px-3" type="button" id="button-addon1" data-mdb-ripple-color="dark">
                   <i class="fas fa-minus"></i>
                 </button>
-                <input type="text" class="form-control text-center border border-secondary" placeholder="14" aria-label="Example text with button addon" aria-describedby="button-addon1" />
-                <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon2" data-mdb-ripple-color="dark">
+                <input type="text" class="form-control text-center border border-secondary" :placeholder="cart.totalItems" aria-label="Example text with button addon" aria-describedby="button-addon1" />
+                <button @click="cart.qtyAdded(productDetails)" class="btn btn-white border border-secondary px-3" type="button" id="button-addon2" data-mdb-ripple-color="dark">
                   <i class="fas fa-plus"></i>
                 </button>
               </div>
             </div>
           </div>
-          <a href="#" class="btn ms-2 btn-warning shadow-0"> Buy now </a>
-          <a href="#" class="btn ms-2 btn-primary shadow-0"> <i class="me-1 fa fa-shopping-basket"></i> Add to cart </a>
-          <a href="#" class="btn ms-2 btn-light border border-secondary py-2 icon-hover px-3"> <i class="me-1 fa fa-heart fa-lg"></i> Save </a>
+          <button class="btn ms-2 btn-warning shadow-0"><i class="fa-solid fa-cart-shopping"></i> Buy now </button>
+          <button @click="cart.adding(productDetails)" class="btn ms-2 btn-primary shadow-0"> <i class="me-1 fa fa-shopping-basket"></i> Add to cart </button>
+          <button class="btn ms-2 btn-light border border-secondary py-2 icon-hover px-3"> <i class="fa-solid fa-bookmark"></i> Save </button>
         </div>
       </main>
     </div>
@@ -122,6 +122,7 @@ const setActiveLink = (link) => {
 </section>
 <!-- content -->
 
+<!--  -->
 <section class=" border-top py-4">
   <div class="container">
     <div class="row gx-4">

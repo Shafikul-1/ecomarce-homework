@@ -84,6 +84,14 @@ const router = createRouter({
       path: '/whichlist',
       component: ()=> import( '../views/Users/𝐖𝐡𝐢𝐜𝐡𝐥𝐢𝐬𝐭.vue')
     },
+    {
+      path: '/cart',
+      component: ()=> import('../views/Users/Cart.vue')
+    },
+    {
+      path:'/o',
+      component: ()=> import('../components/Test.vue')
+    }
     
   ]
 })
