@@ -4,6 +4,7 @@ import axios from 'axios';
 import { ref, reactive, onBeforeMount } from 'vue'
 import {useRoute} from 'vue-router'
 import { cart } from '../store/Cart'
+import { SaveProduct } from '../store/SaveProduct';
 const route = useRoute()
 
 const productDetails = ref('')
@@ -114,7 +115,7 @@ const setActiveLink = (link) => {
           </div>
           <button class="btn ms-2 btn-warning shadow-0"><i class="fa-solid fa-cart-shopping"></i> Buy now </button>
           <button @click="cart.adding(productDetails)" class="btn ms-2 btn-primary shadow-0"> <i class="me-1 fa fa-shopping-basket"></i> Add to cart </button>
-          <button class="btn ms-2 btn-light border border-secondary py-2 icon-hover px-3"> <i class="fa-solid fa-bookmark"></i> Save </button>
+          <button @click="SaveProduct.adddingItems(productDetails)" class="btn ms-2 btn-light border border-secondary py-2 icon-hover px-3"> <i class="fa-solid fa-bookmark"></i> Save </button>
         </div>
       </main>
     </div>

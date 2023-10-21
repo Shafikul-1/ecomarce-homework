@@ -1,6 +1,9 @@
 import { ref, reactive } from 'vue'
 import router from '../router/index'
 import { cart } from './Cart';
+import { whichList } from './WhichList'
+import { SaveProduct } from './SaveProduct'
+
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 const authenticate = reactive({
@@ -8,7 +11,7 @@ const authenticate = reactive({
     checkUser: localStorage.getItem('userAuthenticate'),
     
     userSignUp(signUpInfo){
-        console.log(signUpInfo);
+        // console.log(signUpInfo);
         localStorage.setItem('signUp', JSON.stringify(signUpInfo))
         router.push('/login')
     },
@@ -16,8 +19,8 @@ const authenticate = reactive({
     userLogin(loginInfo){
         const getUserInfo = localStorage.getItem('signUp')
         const userInfo = JSON.parse(getUserInfo)
-        console.log( userInfo)
-        console.log(loginInfo)
+        // console.log( userInfo)
+        // console.log(loginInfo)
 
         if ( userInfo === undefined || userInfo === null || userInfo === '' || userInfo === '{}') {
             toast.error('Please Register Your account')
@@ -53,6 +56,12 @@ const authenticate = reactive({
         cart.cartProduct = {}
         localStorage.setItem('userProductSave', '{}');
         cart.totalProduct = 0
+
+        // Which List js
+        localStorage.removeItem('whichListItem');
+
+        // Save Product js
+        localStorage.removeItem('SaveItem');
     }
 })
 

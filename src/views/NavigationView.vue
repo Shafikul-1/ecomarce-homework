@@ -3,6 +3,8 @@ import { ref, reactive } from 'vue'
 import { authenticate } from '../store/UserAuth'
 import { cart } from '../store/Cart';
 import { theming } from '../store/theme'
+import { whichList } from '../store/WhichList';
+import { SaveProduct } from '../store/SaveProduct';
 const activeLink = ref('/') // Initialize the active link
 const setActiveLink = (link) => {
     activeLink.value = link // Update the active link when a RouterLink is clicked
@@ -76,8 +78,7 @@ const setActiveLink = (link) => {
                         </a>
                         <ul class="dropdown-menu ">
                             <li><RouterLink class="dropdown-item" to="/profile">Profile</RouterLink>  </li>
-                            <li><RouterLink class="dropdown-item" to="/check-out">CheckOut</RouterLink>  </li>
-                            <li><RouterLink class="dropdown-item" to="/whichlist">Which List</RouterLink>  </li>
+                            <li><RouterLink class="dropdown-item" to="/check-out">CheckOut</RouterLink>  </li> 
                             <li><button class="dropdown-item" @click="authenticate.logoutUser()">Logout</button>  </li>
                         </ul>
                     </li>
@@ -87,6 +88,27 @@ const setActiveLink = (link) => {
                             Cart <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">{{ cart.totalItems >= 20 ? '19+' : cart.totalItems }} <span class="visually-hidden">unread messages</span></span>
                         </RouterLink>
                     </li>
+                    <li  class="nav-item ">
+                        <RouterLink to="/which-list" class=" position-relative nav-link" style="margin: 0 0px 0px 27px;" :class="{ 'active': activeLink === '/' }"
+                            @click="setActiveLink('/')">
+                            <i class="fas fa-heart fa-lg"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-success">
+                            {{ whichList.whichListItems.length > 10 ? '10+' : whichList.whichListItems.length }}
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
+                        </RouterLink>
+                    </li>
+                    <li  class="nav-item ">
+                        <RouterLink to="/save-product" class=" position-relative nav-link" style="margin: 0 0px 0px 27px;" :class="{ 'active': activeLink === '/save-product' }"
+                            @click="setActiveLink('/save-product')">
+                            <i class="fa-solid fa-bookmark"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-success">
+                                {{ SaveProduct.SaveItems.length > 10 ? '10+' : SaveProduct.SaveItems.length }}
+                                <span class="visually-hidden">unread messages</span>
+                            </span>
+                        </RouterLink>
+                    </li>
+                    
                 </ul>
                 <button class="ms-2"><i class="fa-solid fa-circle-half-stroke"></i></button>
             </div>

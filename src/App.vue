@@ -3,6 +3,7 @@ import {  RouterView } from 'vue-router'
 import NavigationView from './views/NavigationView.vue';
 import { theming } from './store/theme';
 import { cart } from './store/Cart';
+import { whichList } from './store/WhichList';
 // const theme = ()=>{
 //   const setheme = document.querySelector('themeSet')
 //   setheme.classList.replace('light', 'dark')

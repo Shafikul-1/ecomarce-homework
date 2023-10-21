@@ -3,9 +3,9 @@ import { ref, reactive } from 'vue'
 //import  from '.'
 import { authenticate } from '../../store/UserAuth';
 const login = reactive({
-    name: '',
-    email: '',
-    pass: '',
+    name: 'shafikul',
+    email: 'shafikul@gmail.com',
+    pass: 'shafikul',
     remmber: ''
 })
 

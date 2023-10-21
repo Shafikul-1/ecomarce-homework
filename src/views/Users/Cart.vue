@@ -3,11 +3,15 @@
 import { cart } from '../../store/Cart'
 // const items = cart.cartProduct
 // console.log(cart.cartProduct);
-</script>
-<!--  -->
-<template>
 
-  <div class="card mb-3" >
+</script>
+ 
+<template>
+ <div class="" v-if="cart.cartProduct == null || cart.cartProduct == '' || cart.cartProduct == undefined || cart.cartProduct == {}">
+        <h2>Your Cart Product is emty</h2>
+  </div>
+
+  <div v-else class="card mb-3" >
     <div class="container mt-5 p-3 rounded cart">
       <div class="row no-gutters">
         <div class="col-md-8">
@@ -37,7 +41,7 @@ import { cart } from '../../store/Cart'
                 </span>
                 <span class="d-block ms-3 font-weight-bold"><b>${{ userproduct.product.price }}</b></span>
                 <RouterLink :to="{name: 'specification', params:{id: userproduct.product.id}}"><i class="fa-regular fa-eye ms-2"></i></RouterLink>
-                <i @click="cart.removeProduct(userproduct.product.id)" class="fa-solid fa-trash-can ms-2"></i>
+                <i @click="cart.removeProduct(userproduct.product.id)" class="fa-solid fa-trash-can ms-2" style="cursor: pointer;"></i>
               </div>
             </div>
             </template>

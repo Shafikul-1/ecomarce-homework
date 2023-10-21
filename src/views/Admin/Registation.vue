@@ -3,10 +3,10 @@ import { ref, reactive } from 'vue'
 //import  from '.'
 import { authenticate } from '../../store/UserAuth'
 const registation = reactive({
-    name: '',
-    email: '',
-    pass: '',
-    confrimPass: ''
+    name: 'shafikul',
+    email: 'shafikul@gmail.com',
+    pass: 'shafikul',
+    confrimPass: 'shafikul'
 })
  
 </script>

@@ -3,7 +3,7 @@ document.title='Produdct LIst page'
 import{ ref, reactive, onBeforeMount } from 'vue'
 import axios from 'axios';
 import { ContentLoader } from "vue-content-loader"
-import { cart } from '../store/Cart';
+import { whichList } from '../store/WhichList';
 
 const productsList = ref({})
 const loading = ref(true)
@@ -14,6 +14,12 @@ onBeforeMount(async () => {
   loading.value = false
 })
 
+const views = ref(true)
+
+const activeLink = ref('List-view')
+const viewActive = (link) => {
+    activeLink.value = link // Update the active link when a RouterLink is clicked
+}
 </script>
 
 <template>
@@ -256,12 +262,12 @@ onBeforeMount(async () => {
               <option value="2">High rated</option>
               <option value="3">Randomly</option>
             </select>
-            <div class="btn-group shadow-0 border ms-3">
-              <a href="#" class="btn btn-light" title="List view">
-                <i  class="fa fa-bars fa-lg"></i>
+            <div class="btn-group shadow-0 border ms-3" >
+              <a @click="views = true" href="#" class="btn btn-light "  :class="{ 'active': activeLink === 'List-view' }" title="List view" >
+                <i class="fa fa-bars fa-lg" @click="viewActive('List-view')" ></i>
               </a>
-              <a href="#" class="btn btn-light active" title="Grid view">
-                <i class="fa fa-th fa-lg"></i>
+              <a @click="views = false" href="#" class="btn btn-light" :class="{ 'active': activeLink === 'Grid-view' }" title="Grid view" >
+                <i class="fa fa-th fa-lg" @click="viewActive('Grid-view')"  ></i>
               </a>
             </div>
           </div>
@@ -333,7 +339,9 @@ onBeforeMount(async () => {
         </div>
         <!-- Loader End .... -->
         <!-- Main Product List Start -->
-        <div v-for="product in productsList.products" :key="product.id" class="row justify-content-center mb-3">
+        
+        <!-- List View Start -->
+        <div v-if="views == true"  v-for="product in productsList.products" :key="product.id" class="row justify-content-center mb-3">
           <div class="col-md-12">
             <div class="card shadow-0 border rounded-3">
               <div class="card-body">
@@ -373,7 +381,10 @@ onBeforeMount(async () => {
                     <div class="mt-4">
                       <router-link :to="{ name: 'specification', params: { id: product.id } }" class="btn btn-primary shadow">Visit Product</router-link>
 
-                      <button type="button" class="btn btn-light border px-2 pt-2 icon-hover ms-2"><i class="fas fa-heart fa-lg px-1"></i></button>
+                      <button type="button" @click="whichList.adddingItems(product)" class="btn btn-light border px-2 pt-2 icon-hover ms-2">
+                        <i v-if="whichList.whichListItems.find(i => i.id === product.id)" class="fa-solid fa-heart px-1"></i>
+                        <i v-else class="fa-regular fa-heart px-1"></i>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -381,6 +392,40 @@ onBeforeMount(async () => {
             </div>
           </div>
         </div>
+        <!-- List View End -->
+
+        <!-- Gred View Start  -->
+        <div v-if="views == false" class="container">
+          <div class="row" id="ads">
+            <div v-for="item in productsList.products" class="col-md-4 " style="margin-top: 2rem;">
+              <!-- {{ console.log(item)}} -->
+              <div class="card rounded">
+                <div class="card-image">
+                  <span class="card-notify-badge">{{ item.brand }}</span>
+                  <span class="card-notify-year"> {{ item.rating }}</span>
+                  <div class="productImageSize">
+                    <img class="img-fluid"
+                      :src="item.thumbnail"
+                      :alt="item.title" 
+                      :title="item.title" />
+                  </div>
+                </div>
+                <div class="card-image-overlay m-auto">
+                  <span class="card-detail-badge mt-2">Price: ${{ item.price }}</span>
+                </div>
+                <div class="card-body text-center">
+                  <div class="ad-title m-auto">
+                    <h5>{{ item.title }}</h5>
+                    <p>{{ item.description.split(' ').splice(1,10).join(' ') }} <router-link :to="{name: 'specification', params: {id: item.id}}" class="text-decoration-none">Read More</router-link></p>
+                  </div>
+                  <router-link :to="{name: 'specification', params: {id: item.id}}" class="text-decoration-none ad-btn">Read More</router-link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Gread View End -->
+
         <!-- Main Product List End -->
 
     
@@ -418,6 +463,11 @@ onBeforeMount(async () => {
 
 
 <style scoped>
+.productImageSize{
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
 .menuGap{
     margin-top: 5rem;
     margin-bottom: 2rem;
@@ -428,4 +478,102 @@ onBeforeMount(async () => {
     overflow-y: auto;
     width: 22%;
 }
+
+
+/* ==list view css */
+
+#ads {
+  margin: 30px 0 30px 0;
+
+}
+#ads .card-notify-badge {
+  position: absolute;
+  left: -10px;
+  top: -20px;
+  background: #f2d900;
+  text-align: center;
+  border-radius: 30px 30px 30px 30px;
+  color: #000;
+  padding: 5px 10px;
+  font-size: 14px;
+
+}
+
+#ads .card-notify-year {
+  position: absolute;
+  right: -10px;
+  top: -20px;
+  background: #ff4444;
+  border-radius: 50%;
+  text-align: center;
+  color: #fff;
+  font-size: 14px;
+  width: 50px;
+  height: 50px;
+  padding: 15px 0 0 0;
+}
+
+
+#ads .card-detail-badge {
+  background: #f2d900;
+  text-align: center;
+  border-radius: 30px 30px 30px 30px;
+  color: #000;
+  padding: 5px 10px;
+  font-size: 14px;
+}
+
+
+
+#ads .card:hover {
+  background: #fff;
+  box-shadow: 12px 15px 20px 0px rgba(46, 61, 73, 0.15);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+#ads .card-image-overlay {
+  font-size: 20px;
+
+}
+
+
+#ads .card-image-overlay span {
+  display: inline-block;
+}
+
+
+#ads .ad-btn {
+  text-transform: uppercase;
+  width: 150px;
+  height: 40px;
+  border-radius: 80px;
+  font-size: 16px;
+  line-height: 35px;
+  text-align: center;
+  border: 3px solid #e6de08;
+  display: block;
+  text-decoration: none;
+  margin: 20px auto 1px auto;
+  color: #000;
+  overflow: hidden;
+  position: relative;
+  background-color: #e6de08;
+}
+
+#ads .ad-btn:hover {
+  background-color: #e6de08;
+  color: #1e1717;
+  border: 2px solid #e6de08;
+  background: transparent;
+  transition: all 0.3s ease;
+  box-shadow: 12px 15px 20px 0px rgba(46, 61, 73, 0.15);
+}
+
+#ads .ad-title h5 {
+  text-transform: uppercase;
+  font-size: 18px;
+}
 </style>
+
+

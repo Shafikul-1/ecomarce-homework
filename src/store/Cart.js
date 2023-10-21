@@ -73,9 +73,8 @@ const cart = reactive({
     removeProduct(productId){
       // console.log(productId);
       delete this.cartProduct[productId]
-      this.productSave()
     }
 })
 cart.getProductData()
-
+ 
 export { cart }

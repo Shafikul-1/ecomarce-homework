@@ -81,12 +81,16 @@ const router = createRouter({
       component: ()=> import( '../views/Users/CheckOut.vue')
     },
     {
-      path: '/whichlist',
-      component: ()=> import( '../views/Users/𝐖𝐡𝐢𝐜𝐡𝐥𝐢𝐬𝐭.vue')
-    },
-    {
       path: '/cart',
       component: ()=> import('../views/Users/Cart.vue')
+    },
+    {
+      path: '/save-product',
+      component: ()=> import('../views/Users/SaveProduct.vue')
+    },
+    {
+      path: '/which-list',
+      component: ()=> import('../views/Users/WhichList.vue')
     },
     {
       path:'/o',
