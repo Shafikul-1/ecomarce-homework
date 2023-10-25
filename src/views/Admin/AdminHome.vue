@@ -6,29 +6,10 @@ import '../../assets/admin.css'
 
 <template>
  <div class="container-scroller">
-      <!-- <div class="row p-0 m-0 proBanner" id="proBanner">
-        <div class="col-md-12 p-0 m-0">
-          <div class="card-body card-body-padding d-flex align-items-center justify-content-between">
-            <div class="ps-lg-1">
-              <div class="d-flex align-items-center justify-content-between">
-                <p class="mb-0 font-weight-medium me-3 buy-now-text">Free 24/7 customer support, updates, and more with this template!</p>
-                <a href="https://www.bootstrapdash.com/product/purple-bootstrap-admin-template/?utm_source=organic&utm_medium=banner&utm_campaign=buynow_demo" target="_blank" class="btn me-2 buy-now-btn border-0">Get Pro</a>
-              </div>
-            </div>
-            <div class="d-flex align-items-center justify-content-between">
-              <a href="https://www.bootstrapdash.com/product/purple-bootstrap-admin-template/"><i class="mdi mdi-home me-3 text-white"></i></a>
-              <button id="bannerClose" class="btn border-0 p-0">
-                <i class="mdi mdi-close text-white me-0"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div> -->
-      <!-- partial:partials/_navbar.html -->
       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row adminspace">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-          <a class="navbar-brand brand-logo" href="index.html"><img src="assets/images/logo.svg" alt="logo" /></a>
-          <a class="navbar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo" /></a>
+          <a class="navbar-brand brand-logo" href=""><img src="" alt="logo" /></a>
+          <a class="navbar-brand brand-logo-mini" href=""><img src="" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-stretch">
           <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -48,7 +29,7 @@ import '../../assets/admin.css'
             <li class="nav-item nav-profile dropdown">
               <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                 <div class="nav-profile-img">
-                  <img src="assets/images/faces/face1.jpg" alt="image">
+                  <img src="" alt="image">
                   <span class="availability-status online"></span>
                 </div>
                 <div class="nav-profile-text">
@@ -78,7 +59,7 @@ import '../../assets/admin.css'
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
-                    <img src="assets/images/faces/face4.jpg" alt="image" class="profile-pic">
+                    <img src="" alt="image" class="profile-pic">
                   </div>
                   <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
                     <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Mark send you a message</h6>
@@ -88,7 +69,7 @@ import '../../assets/admin.css'
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
-                    <img src="assets/images/faces/face2.jpg" alt="image" class="profile-pic">
+                    <img src="" alt="image" class="profile-pic">
                   </div>
                   <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
                     <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Cregh send you a message</h6>
@@ -98,7 +79,7 @@ import '../../assets/admin.css'
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
-                    <img src="assets/images/faces/face3.jpg" alt="image" class="profile-pic">
+                    <img src="" alt="image" class="profile-pic">
                   </div>
                   <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
                     <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Profile picture updated</h6>
@@ -180,7 +161,7 @@ import '../../assets/admin.css'
             <li class="nav-item nav-profile">
               <a href="#" class="nav-link">
                 <div class="nav-profile-image">
-                  <img src="assets/images/faces/face1.jpg" alt="profile">
+                  <img src="" alt="profile">
                   <span class="login-status online"></span>
                   <!--change to offline or busy as needed-->
                 </div>
@@ -192,7 +173,7 @@ import '../../assets/admin.css'
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="index.html">
+              <a class="nav-link" href="">
                 <span class="menu-title">Dashboard</span>
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
@@ -205,31 +186,31 @@ import '../../assets/admin.css'
               </a>
               <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="">Buttons</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="">Typography</a></li>
                 </ul>
               </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="pages/icons/mdi.html">
+              <a class="nav-link" href="">
                 <span class="menu-title">Icons</span>
                 <i class="mdi mdi-contacts menu-icon"></i>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="pages/forms/basic_elements.html">
+              <a class="nav-link" href="">
                 <span class="menu-title">Forms</span>
                 <i class="mdi mdi-format-list-bulleted menu-icon"></i>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="pages/charts/chartjs.html">
+              <a class="nav-link" href="">
                 <span class="menu-title">Charts</span>
                 <i class="mdi mdi-chart-bar menu-icon"></i>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="pages/tables/basic-table.html">
+              <a class="nav-link" href="">
                 <span class="menu-title">Tables</span>
                 <i class="mdi mdi-table-large menu-icon"></i>
               </a>
@@ -242,11 +223,11 @@ import '../../assets/admin.css'
               </a>
               <div class="collapse" id="general-pages">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="pages/samples/blank-page.html"> Blank Page </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
+                  <li class="nav-item"> <a class="nav-link" href=""> Blank Page </a></li>
+                  <li class="nav-item"> <a class="nav-link" href=""> Login </a></li>
+                  <li class="nav-item"> <a class="nav-link" href=""> Register </a></li>
+                  <li class="nav-item"> <a class="nav-link" href=""> 404 </a></li>
+                  <li class="nav-item"> <a class="nav-link" href=""> 500 </a></li>
                 </ul>
               </div>
             </li>
@@ -290,7 +271,7 @@ import '../../assets/admin.css'
               <div class="col-md-4 stretch-card grid-margin">
                 <div class="card bg-gradient-danger card-img-holder text-white">
                   <div class="card-body">
-                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <img src="" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3">Weekly Sales <i class="mdi mdi-chart-line mdi-24px float-right"></i>
                     </h4>
                     <h2 class="mb-5">$ 15,0000</h2>
@@ -301,7 +282,7 @@ import '../../assets/admin.css'
               <div class="col-md-4 stretch-card grid-margin">
                 <div class="card bg-gradient-info card-img-holder text-white">
                   <div class="card-body">
-                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <img src="" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3">Weekly Orders <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
                     </h4>
                     <h2 class="mb-5">45,6334</h2>
@@ -312,7 +293,7 @@ import '../../assets/admin.css'
               <div class="col-md-4 stretch-card grid-margin">
                 <div class="card bg-gradient-success card-img-holder text-white">
                   <div class="card-body">
-                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <img src="" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3">Visitors Online <i class="mdi mdi-diamond mdi-24px float-right"></i>
                     </h4>
                     <h2 class="mb-5">95,5741</h2>
@@ -362,7 +343,7 @@ import '../../assets/admin.css'
                         <tbody>
                           <tr>
                             <td>
-                              <img src="assets/images/faces/face1.jpg" class="me-2" alt="image"> David Grey
+                              <img src="" class="me-2" alt="image"> David Grey
                             </td>
                             <td> Fund is not recieved </td>
                             <td>
@@ -373,7 +354,7 @@ import '../../assets/admin.css'
                           </tr>
                           <tr>
                             <td>
-                              <img src="assets/images/faces/face2.jpg" class="me-2" alt="image"> Stella Johnson
+                              <img src="" class="me-2" alt="image"> Stella Johnson
                             </td>
                             <td> High loading time </td>
                             <td>
@@ -384,7 +365,7 @@ import '../../assets/admin.css'
                           </tr>
                           <tr>
                             <td>
-                              <img src="assets/images/faces/face3.jpg" class="me-2" alt="image"> Marina Michel
+                              <img src="" class="me-2" alt="image"> Marina Michel
                             </td>
                             <td> Website down for one week </td>
                             <td>
@@ -395,7 +376,7 @@ import '../../assets/admin.css'
                           </tr>
                           <tr>
                             <td>
-                              <img src="assets/images/faces/face4.jpg" class="me-2" alt="image"> John Doe
+                              <img src="" class="me-2" alt="image"> John Doe
                             </td>
                             <td> Loosing control on server </td>
                             <td>
@@ -428,16 +409,16 @@ import '../../assets/admin.css'
                     </div>
                     <div class="row mt-3">
                       <div class="col-6 pe-1">
-                        <img src="assets/images/dashboard/img_1.jpg" class="mb-2 mw-100 w-100 rounded" alt="image">
-                        <img src="assets/images/dashboard/img_4.jpg" class="mw-100 w-100 rounded" alt="image">
+                        <img src="" class="mb-2 mw-100 w-100 rounded" alt="image">
+                        <img src="" class="mw-100 w-100 rounded" alt="image">
                       </div>
                       <div class="col-6 ps-1">
-                        <img src="assets/images/dashboard/img_2.jpg" class="mb-2 mw-100 w-100 rounded" alt="image">
-                        <img src="assets/images/dashboard/img_3.jpg" class="mw-100 w-100 rounded" alt="image">
+                        <img src="" class="mb-2 mw-100 w-100 rounded" alt="image">
+                        <img src="" class="mw-100 w-100 rounded" alt="image">
                       </div>
                     </div>
                     <div class="d-flex mt-5 align-items-top">
-                      <img src="assets/images/faces/face3.jpg" class="img-sm rounded-circle me-3" alt="image">
+                      <img src="" class="img-sm rounded-circle me-3" alt="image">
                       <div class="mb-0 flex-grow">
                         <h5 class="me-2 mb-2">School Website - Authentication Module.</h5>
                         <p class="mb-0 font-weight-light">It is a long established fact that a reader will be distracted by the readable content of a page.</p>
@@ -596,7 +577,7 @@ import '../../assets/admin.css'
           <footer class="footer">
             <div class="container-fluid d-flex justify-content-between">
               <span class="text-muted d-block text-center text-sm-start d-sm-inline-block">Copyright © bootstrapdash.com 2021</span>
-              <span class="float-none float-sm-end mt-1 mt-sm-0 text-end"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin template</a> from Bootstrapdash.com</span>
+              <span class="float-none float-sm-end mt-1 mt-sm-0 text-end"> Free <a href="" target="_blank">Bootstrap admin template</a> from Bootstrapdash.com</span>
             </div>
           </footer>
           <!-- partial -->
