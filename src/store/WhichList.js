@@ -1,15 +1,21 @@
 import { ref, reactive } from 'vue'
+import { authenticate } from './UserAuth'
+import router from '../router'
 
 const whichList = reactive({
     whichListItems: JSON.parse(localStorage.getItem('whichListItem')) || [],
 
     adddingItems(item) {
-        const index = this.whichListItems.findIndex(i => i.id === item.id)
+        if (authenticate.isAuth) {
+            const index = this.whichListItems.findIndex(i => i.id === item.id)
 
-        if (index === -1) {
-            this.whichListItems.push(item)
+            if (index === -1) {
+                this.whichListItems.push(item)
+            } else {
+                this.whichListItems.splice(index, 1)
+            }
         } else {
-            this.whichListItems.splice(index, 1)
+          router.push('/login')  
         }
 
         this.saveLocalStore()

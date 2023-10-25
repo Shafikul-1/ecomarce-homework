@@ -1,17 +1,20 @@
 import { ref, reactive } from 'vue'
-
+import { authenticate } from './UserAuth'
+import router from '../router'
 const SaveProduct = reactive({
     SaveItems: JSON.parse(localStorage.getItem('SaveItem')) || [],
 
     adddingItems(item) {
-        const index = this.SaveItems.findIndex(i => i.id === item.id)
+        if (authenticate.isAuth) {
+            const index = this.SaveItems.findIndex(i => i.id === item.id)
 
-        if (index === -1) {
-            this.SaveItems.push(item)
+            if (index === -1) {
+                this.SaveItems.push(item)
+            }
+        } else {
+            router.push('/login') 
         }
-        //  else {
-        //     this.SaveItems.splice(index, 1)
-        // }
+       
 
         this.saveLocalStore()
     },

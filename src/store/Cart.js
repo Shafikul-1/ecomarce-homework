@@ -1,5 +1,6 @@
 import { ref, reactive , computed} from 'vue'
-
+import { authenticate } from './UserAuth';
+import router from '../router';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
@@ -23,15 +24,20 @@ const cart = reactive({
     }),
 
     adding(product){
-      if (this.cartProduct[product.id]) {
-        this.cartProduct[product.id].QTY++
+      if (authenticate.isAuth) {
+        if (this.cartProduct[product.id]) {
+          this.cartProduct[product.id].QTY++
+        } else {
+          this.cartProduct[product.id] = {
+              product,
+              QTY:1,
+          },
+          toast.success('Your Product Added')
+        }
       } else {
-        this.cartProduct[product.id] = {
-            product,
-            QTY:1,
-        },
-        toast.success('Your Product Added')
+        router.push('/login')
       }
+     
       this.productSave()
     },
 

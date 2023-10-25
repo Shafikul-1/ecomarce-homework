@@ -1,25 +1,33 @@
 <script setup>
 document.title='Produdct LIst page'
-import{ ref, reactive, onBeforeMount } from 'vue'
-import axios from 'axios';
+import{ ref, reactive, onMounted, watch } from 'vue'
 import { ContentLoader } from "vue-content-loader"
 import { whichList } from '../store/WhichList';
+import { searchFilter } from '../store/SearchAndFilter'
+import { getProductData } from '../store/Api_Product'
+import { BrandName } from '../store/BrandName'
 
-const productsList = ref({})
-const loading = ref(true)
-onBeforeMount(async () => {
-  const url = 'https://dummyjson.com/products'
-  const response = await axios.get(url)
-  productsList.value = response.data
-  loading.value = false
+// All Product List
+onMounted(() => {
+  getProductData.fetchData(),
+  BrandName.fetchBrand()
 })
 
+//Search........
+const searchShow = ref(false)
+
+// List View And Gard View
 const views = ref(true)
 
+
+// ActiveLink
 const activeLink = ref('List-view')
 const viewActive = (link) => {
-    activeLink.value = link // Update the active link when a RouterLink is clicked
+    activeLink.value = link
 }
+
+
+
 </script>
 
 <template>
@@ -30,15 +38,7 @@ const viewActive = (link) => {
       <!-- sidebar Start -->
       <div class="col-md-3 position-relative">
         <!-- Toggle button -->
-        <button
-                class="btn btn-outline-secondary mb-3 w-100 d-lg-none"
-                type="button"
-                data-bs-toggle="collapse" 
-                data-bs-target="#navbarSupportedContent" 
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-        >
+        <button class="btn btn-outline-secondary mb-3 w-100 d-lg-none" type="button" data-bs-toggle="collapse"  data-bs-target="#navbarSupportedContent"  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" >
           <span>Show filter</span>
         </button>
         <!-- Collapsible wrapper -->
@@ -89,46 +89,50 @@ const viewActive = (link) => {
                 <div class="accordion-body">
                   <div>
                     <!-- Checked checkbox -->
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked1" checked />
-                      <label class="form-check-label" for="flexCheckChecked1">Mercedes</label>
-                      <span class="badge badge-secondary float-end">120</span>
+                    <div  v-if="BrandName.loading == true">
+                      <p>Loading ...</p>
                     </div>
-                    <!-- Checked checkbox -->
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked2" checked />
-                      <label class="form-check-label" for="flexCheckChecked2">Toyota</label>
-                      <span class="badge badge-secondary float-end">15</span>
-                    </div>
-                    <!-- Checked checkbox -->
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked3" checked />
-                      <label class="form-check-label" for="flexCheckChecked3">Mitsubishi</label>
-                      <span class="badge badge-secondary float-end">35</span>
-                    </div>
-                    <!-- Checked checkbox -->
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked4" checked />
-                      <label class="form-check-label" for="flexCheckChecked4">Nissan</label>
-                      <span class="badge badge-secondary float-end">89</span>
-                    </div>
-                    <!-- Default checkbox -->
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                      <label class="form-check-label" for="flexCheckDefault">Honda</label>
-                      <span class="badge badge-secondary float-end">30</span>
-                    </div>
-                    <!-- Default checkbox -->
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                      <label class="form-check-label" for="flexCheckDefault">Suzuki</label>
-                      <span class="badge badge-secondary float-end">30</span>
+                    <!-- -->
+                    <div v-if="BrandName.loading == false" v-for="(brand, index) in BrandName.filterBrand" :key="index" class="form-check pointer">
+                      <label class="form-check-label pointer" :for="'brand'+index">{{ brand[0].brand }}</label>
+                      <span class="badge badge-secondary float-end text-dark">{{ brand.length }}</span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+            <!--  -->
             <div class="accordion-item">
+              <h2 class="accordion-header" id="headingTwo">
+                <button
+                        class="accordion-button text-light bg-dark bg-gradient mt-3"
+                        type="button"
+                        data-bs-toggle="collapse" 
+                        data-bs-target="#cetagory" 
+                        aria-expanded="true"
+                        aria-controls="brands"
+                >
+                  Cetagory
+                </button>
+              </h2>
+              <div id="cetagory" class="accordion-collapse collapse show" aria-labelledby="headingTwo">
+                <div class="accordion-body">
+                  <div>
+                    <!-- Checked checkbox -->
+                    <div  v-if="BrandName.loading == true">
+                      <p>Loading ...</p>
+                    </div>
+                    <!-- -->
+                    <RouterLink to="/products/cetagory" v-for="(cetagory, index) in BrandName.filterCetagroy" :key="index" v-if="BrandName.loading == false" class="form-check pointer categoryHover">
+                      <label class="form-check-label text-capitalize  pointer"  :for="'cetagory'+index">{{ cetagory[0].brand }}</label>
+                      <span class="badge badge-secondary float-end text-dark">{{ cetagory.length }}</span>
+                    </RouterLink>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--  -->
+            <!-- <div class="accordion-item">
               <h2 class="accordion-header" id="headingThree">
                 <button
                         class="accordion-button text-light bg-dark bg-gradient mt-3"
@@ -144,8 +148,9 @@ const viewActive = (link) => {
               <div id="price" class="accordion-collapse collapse show" aria-labelledby="headingThree">
                 <div class="accordion-body">
                   <div class="range">
-                    <input type="range" class="form-range" id="customRange1" />
+                    <input v-model="getProductData.getRangeData" type="range" class="form-range" id="customRange1" />
                   </div>
+                <p>{{ getProductData.getRangeData }}</p>
                   <div class="row mb-3">
                     <div class="col-6">
                       <p class="mb-0">
@@ -166,11 +171,13 @@ const viewActive = (link) => {
                       </div>
                     </div>
                   </div>
-                  <button type="button" class="btn btn-white w-100 border border-secondary">apply</button>
+                  <button type="button" class="btn btn-white w-100 border border-secondary">
+                      Product Range
+                    </button>
                 </div>
               </div>
-            </div>
-            <div class="accordion-item">
+            </div> -->
+            <!-- <div class="accordion-item">
               <h2 class="accordion-header" id="headingThree">
                 <button
                         class="accordion-button text-light bg-dark bg-gradient mt-3"
@@ -195,7 +202,7 @@ const viewActive = (link) => {
                   <label class="btn btn-white mb-1 px-1" style="width: 60px;" for="btn-check4">XXL</label>
                 </div>
               </div>
-            </div>
+            </div> -->
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingThree">
                 <button
@@ -253,8 +260,24 @@ const viewActive = (link) => {
 
       <!-- Select And View Button Start -->
       <div class="col-md-9 ">
-        <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3 ">
-          <strong class="d-block py-2">Total Items: {{ productsList.total }} pcs</strong>
+
+        <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3 position-relative">
+          <strong class="d-block py-2">Total Items: {{ getProductData.getCollectData.total }} pcs</strong>
+          
+          <div class="ms-5">
+            <div class="input-group flex-nowrap">
+              <span @click="searchShow = !searchShow" class="input-group-text shadowSearchIcon" id="addon-wrapping"><i class="fa-solid fa-magnifying-glass"></i></span>
+              <input v-if="searchShow" type="text" v-model="searchFilter.inputData" class="form-control" placeholder="Search Product" aria-label="Search-Product" aria-describedby="addon-wrapping">
+            </div>
+            <div v-if="searchShow" class="position-absolute p-3 rounded mt-3" style="z-index:111; background: rgba(252, 252, 252, 0.774); box-shadow: 0px 0px 10px 1px black;">
+              <p><b>Search:</b> {{ searchFilter.inputData }}</p>
+              <ul style="list-style: none; padding: 0;">
+                <li v-for="(searchResult, index) in searchFilter.filteredData" :key="index"> <router-link :to="{name: 'specification', params: {id: searchResult.id}}" class="filterItem">{{ searchResult.title }}</router-link> </li>
+              </ul>
+            </div>
+          </div>
+
+          <!--  -->
           <div class="ms-auto">
             <select class="form-select d-inline-block w-auto border pt-1 ">
               <option value="0">Best match</option>
@@ -275,7 +298,7 @@ const viewActive = (link) => {
       <!-- Select And View Button Start End -->
 
         <!-- Loader Start .... -->
-        <div v-if="loading == true">
+        <div v-if="getProductData.loading == true">
           <ContentLoader 
             viewBox="0 0 500 100"
             primaryColor="#f3f3f3"
@@ -338,10 +361,11 @@ const viewActive = (link) => {
           </ContentLoader>
         </div>
         <!-- Loader End .... -->
+
         <!-- Main Product List Start -->
         
         <!-- List View Start -->
-        <div v-if="views == true"  v-for="product in productsList.products" :key="product.id" class="row justify-content-center mb-3">
+        <div v-if="views == true"  v-for="product in getProductData.getCollectData.products" :key="product.id" class="row justify-content-center mb-3">
           <div class="col-md-12">
             <div class="card shadow-0 border rounded-3">
               <div class="card-body">
@@ -380,7 +404,7 @@ const viewActive = (link) => {
                     <h6 class="text-success">Free shipping</h6>
                     <div class="mt-4">
                       <router-link :to="{ name: 'specification', params: { id: product.id } }" class="btn btn-primary shadow">Visit Product</router-link>
-
+                  
                       <button type="button" @click="whichList.adddingItems(product)" class="btn btn-light border px-2 pt-2 icon-hover ms-2">
                         <i v-if="whichList.whichListItems.find(i => i.id === product.id)" class="fa-solid fa-heart px-1"></i>
                         <i v-else class="fa-regular fa-heart px-1"></i>
@@ -397,12 +421,15 @@ const viewActive = (link) => {
         <!-- Gred View Start  -->
         <div v-if="views == false" class="container">
           <div class="row" id="ads">
-            <div v-for="item in productsList.products" class="col-md-4 " style="margin-top: 2rem;">
-              <!-- {{ console.log(item)}} -->
+            <div v-for="item in getProductData.getCollectData.products" class="col-md-4 " style="margin-top: 2rem;">
+              {{ console.log(item)}}
               <div class="card rounded">
                 <div class="card-image">
-                  <span class="card-notify-badge">{{ item.brand }}</span>
-                  <span class="card-notify-year"> {{ item.rating }}</span>
+                  <span class="card-notify-badge ">{{ item.brand }}</span>
+                  <span class="card-notify-year whichlisticon"  @click="whichList.adddingItems(item)"> 
+                      <i v-if="whichList.whichListItems.find(i => i.id === item.id)" class="fa-solid fa-heart px-1"></i>
+                      <i v-else class="fa-regular fa-heart px-1"></i>
+                  </span>
                   <div class="productImageSize">
                     <img class="img-fluid"
                       :src="item.thumbnail"
@@ -412,13 +439,14 @@ const viewActive = (link) => {
                 </div>
                 <div class="card-image-overlay m-auto">
                   <span class="card-detail-badge mt-2">Price: ${{ item.price }}</span>
+                  <span class="card-detail-badges mt-2">Discount: ${{ item.discountPercentage }}</span>
                 </div>
                 <div class="card-body text-center">
                   <div class="ad-title m-auto">
                     <h5>{{ item.title }}</h5>
                     <p>{{ item.description.split(' ').splice(1,10).join(' ') }} <router-link :to="{name: 'specification', params: {id: item.id}}" class="text-decoration-none">Read More</router-link></p>
                   </div>
-                  <router-link :to="{name: 'specification', params: {id: item.id}}" class="text-decoration-none ad-btn">Read More</router-link>
+                  <router-link :to="{name: 'specification', params: {id: item.id}}" class="animationBTN text-decoration-none ad-btn">Read More</router-link>
                 </div>
               </div>
             </div>
@@ -463,6 +491,60 @@ const viewActive = (link) => {
 
 
 <style scoped>
+.hoverSideShow{
+  position: fixed;
+    top: 11rem;
+    left: 28%;
+    background-color: red;
+    z-index: 9;
+    display: block;
+}
+.categoryHover:hover{
+  background: rgba(128, 128, 128, 0.521);
+}
+
+.animationBTN{
+  width: 165px;
+  height: 62px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 17px;
+  border-radius: 1rem;
+  border: none;
+  position: relative;
+  background: #100720;
+  transition: 0.1s;
+}
+.animationBTN::after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(255,94,247,1) 17.8%, rgba(2,245,255,1) 100.2% );
+  filter: blur(15px);
+  z-index: -1;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.animationBTN:active {
+  transform: scale(0.9) rotate(3deg);
+  background: radial-gradient( circle farthest-corner at 10% 20%,  rgba(255,94,247,1) 17.8%, rgba(2,245,255,1) 100.2% );
+  transition: 0.5s;
+}
+.shadowSearchIcon{
+  cursor:pointer;
+  box-shadow: 0px 0px 4px 1px black;
+}
+.filterItem{
+  text-decoration: none;
+  color: black;
+}
+.filterItem:hover{
+  text-decoration: underline;
+}
+.whichlisticon{
+  cursor: pointer;
+}
 .productImageSize{
     width: 100%;
     height: 200px;
@@ -523,6 +605,15 @@ const viewActive = (link) => {
   font-size: 14px;
 }
 
+#ads .card-detail-badges{
+  text-align: center;
+  border-radius: 30px 30px 30px 30px;
+  color: #ffffff;
+  margin: 0 4px;
+  padding: 5px 10px;
+  font-size: 14px;
+  background: green;
+}
 
 
 #ads .card:hover {
@@ -555,14 +646,11 @@ const viewActive = (link) => {
   display: block;
   text-decoration: none;
   margin: 20px auto 1px auto;
-  color: #000;
   overflow: hidden;
   position: relative;
-  background-color: #e6de08;
 }
 
 #ads .ad-btn:hover {
-  background-color: #e6de08;
   color: #1e1717;
   border: 2px solid #e6de08;
   background: transparent;

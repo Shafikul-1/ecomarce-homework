@@ -5,6 +5,7 @@ import { ref, reactive, onBeforeMount } from 'vue'
 import {useRoute} from 'vue-router'
 import { cart } from '../store/Cart'
 import { SaveProduct } from '../store/SaveProduct';
+import { authenticate } from '../store/UserAuth';
 const route = useRoute()
 
 const productDetails = ref('')
@@ -17,10 +18,10 @@ onBeforeMount( async () => {
 })
 
 const qty = JSON.parse(localStorage.getItem('userProductSave'))
-console.log(qty);
+// console.log(qty);
 const activeLink = ref('specification')
 const setActiveLink = (link) => {
-    activeLink.value = link // Update the active link when a RouterLink is clicked
+    activeLink.value = link
 }
 </script>
 
@@ -113,7 +114,7 @@ const setActiveLink = (link) => {
               </div>
             </div>
           </div>
-          <button class="btn ms-2 btn-warning shadow-0"><i class="fa-solid fa-cart-shopping"></i> Buy now </button>
+          <RouterLink to="/check-out"  class="btn ms-2 btn-warning shadow-0"><i class="fa-solid fa-cart-shopping"></i> Buy now </RouterLink>
           <button @click="cart.adding(productDetails)" class="btn ms-2 btn-primary shadow-0"> <i class="me-1 fa fa-shopping-basket"></i> Add to cart </button>
           <button @click="SaveProduct.adddingItems(productDetails)" class="btn ms-2 btn-light border border-secondary py-2 icon-hover px-3"> <i class="fa-solid fa-bookmark"></i> Save </button>
         </div>

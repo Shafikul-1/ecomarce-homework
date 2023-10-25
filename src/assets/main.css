@@ -6,3 +6,6 @@
     background: white !important;
     color: black;
 }
+.pointer{
+    cursor: pointer;
+}
